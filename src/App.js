@@ -1,23 +1,39 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import Modal from './components/Modal';
+import ModalForm from './components/Modalform';
+import Saves from './components/Saves';
+
+
 
 function App() {
+  const [modal, setModal] = useState(true);
+  const [data, setData] = useState([]);
+
+  const newData = (newdata) => {
+    if (!newdata.name || !newdata.email || !newdata.message) {
+      alert("Iltimos bo'sh joylarni to'ldiring");
+      return;
+    }
+    else{
+      setData((prev) => [...prev, newdata]);
+    }
+  }
+
+  const Btn_modal = () => {
+    setModal(!modal);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="container">
+        <Saves saves={data} />
+        <button onClick={Btn_modal}>Modal</button><br></br>
+        {modal && <Modal Btn_modal={Btn_modal} >
+          <ModalForm onClose={setModal} newData={newData}/>
+        </Modal>}
+      </div>
+
     </div>
   );
 }

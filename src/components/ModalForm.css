@@ -1,0 +1,18 @@
+.modal-form label,
+.modal-form span{
+    color: black;
+}
+
+.modal-form{
+    margin: 1rem;
+    padding: 2rem;
+}
+
+.nameForm,.emailForm,.msgForm{
+    border: 3px solid #000;
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    margin: 0.1rem;
+    resize: none;
+    width: 20rem
+}

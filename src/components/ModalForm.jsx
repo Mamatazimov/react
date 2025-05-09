@@ -1,13 +1,13 @@
 import "./ModalForm.css";
 import { useRef } from "react";
 
-function ModalForm() {
+function ModalForm({ Msg, setIsOpen }) {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const messageRef = useRef(null);
     const genderRef = useRef(null);
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const name = nameRef.current.value;
         const email = emailRef.current.value;
@@ -15,15 +15,33 @@ function ModalForm() {
         const gender = event.target.elements.terms.value;
 
         // Form ma'lumotlarini yuborish
-        console.log("Ism:", name);
-        console.log("Email:", email);
-        console.log("Xabar:", message);
-        console.log("Jins:", gender);
+        try {
+            const response = await fetch("http://127.0.0.1:8000/users/usercreate", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, message, gender }),
+            });
 
-        // Formni tozalash
-        nameRef.current.value = "";
-        emailRef.current.value = "";
-        messageRef.current.value = "";
+            if (response.ok) {
+                const responseData = await response.json();
+                Msg("Muvaffaqiyatli!","green",5000)
+                nameRef.current.value = "";
+                emailRef.current.value = "";
+                messageRef.current.value = "";
+            } else {
+                console.error("Formni jo'natishda xatolik yuz berdi.");
+            }
+        } catch (error) {
+            console.error("Tarmoq xatosi:", error);
+            Msg("Xatolik yuz berdi!","red",5000)
+
+
+        }
+        setIsOpen(false);
+        console.log("Modal yopildi");
+
     }
 
     return (

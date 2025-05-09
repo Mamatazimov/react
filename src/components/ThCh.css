@@ -49,3 +49,12 @@
     transform: translateX(-50%) translateY(-100%);
 }
 
+@media (max-width:500px){
+    .theme-changer .btn::after{
+        width: 3rem;
+        height: 3rem;
+    }
+    .theme-changer .btn{
+        padding: 0.6rem 0.5rem;
+    }
+}

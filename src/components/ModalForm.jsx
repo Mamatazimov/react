@@ -5,7 +5,6 @@ function ModalForm({ Msg, setIsOpen }) {
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const messageRef = useRef(null);
-    const genderRef = useRef(null);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
